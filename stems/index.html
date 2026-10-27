@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101114">
+<title>Stem Studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect x=%221%22 y=%226%22 width=%223%22 height=%229%22 fill=%22%23ff8fb1%22/%3E%3Crect x=%225%22 y=%221%22 width=%223%22 height=%2214%22 fill=%22%23ffb547%22/%3E%3Crect x=%229%22 y=%228%22 width=%223%22 height=%227%22 fill=%22%236fb6ff%22/%3E%3Crect x=%2213%22 y=%224%22 width=%222%22 height=%2211%22 fill=%22%23b49bff%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <a class="homelink" href="../">‹ MuffinWawa's Place</a>
+    <button class="brand" id="homeBtn" aria-label="Start over">
+      <span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>Stem Studio</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="view">
+    <p class="notice"><b>Runs entirely on your device.</b> Your song is never uploaded. The AI models download once and are
+      kept by this browser. Personal, non-commercial use only (model licenses).</p>
+    <div class="card">
+      <h2>1 · Import audio</h2>
+      <label class="drop" id="drop">
+        <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.flac,.ogg,.opus,.m4a,.aac,.aiff,.webm">
+        <span class="drop-icon" aria-hidden="true">♪</span>
+        <span id="dropText">Tap to choose a song</span>
+        <small>MP3, WAV, FLAC, M4A, OGG… up to 15 minutes</small>
+      </label>
+      <div class="loaded hidden" id="loadedBox"></div>
+    </div>
+
+    <div class="card">
+      <h2>2 · Separation mode</h2>
+      <div id="modes" class="modes" role="radiogroup" aria-label="Separation mode"></div>
+      <button class="linkbtn" id="clearModels">Delete downloaded models</button>
+    </div>
+
+    <button class="primary big" id="separateBtn" disabled>Separate stems</button>
+    <p class="hint" id="separateHint">Import a song and choose a downloaded mode.</p>
+  </section>
+
+  <!-- ============ JOB ============ -->
+  <section id="view-job" class="view hidden">
+    <div class="card">
+      <p class="eyebrow" id="jobMode"></p>
+      <h2 id="jobTitle"></h2>
+      <div class="progress-ring">
+        <div class="bar thick"><div id="jobBar"></div></div>
+        <div class="row-between"><strong id="jobPct">0%</strong><span class="muted" id="jobEta"></span></div>
+      </div>
+      <p id="jobMsg" class="jobmsg"></p>
+      <div class="actions">
+        <button class="danger" id="cancelBtn">Stop</button>
+        <button class="ghost hidden" id="jobBackBtn">Back</button>
+      </div>
+      <p class="hint">Keep this tab open with the screen on. If you switch apps, your phone may pause it.
+        Your phone does all the work, so long songs take a while (4-stem modes run four models).</p>
+    </div>
+  </section>
+
+  <!-- ============ STUDIO ============ -->
+  <section id="view-studio" class="view hidden">
+    <div class="card studio-head">
+      <p class="eyebrow" id="studioMode"></p>
+      <h2 id="studioTitle"></h2>
+      <div class="transport">
+        <button class="play" id="playBtn" aria-label="Play">▶</button>
+        <div class="seek">
+          <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek">
+          <div class="row-between muted small"><span id="tNow">0:00</span><span id="tBuf"></span><span id="tDur">0:00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tracks" class="tracks"></div>
+
+    <div class="card">
+      <h2>Export</h2>
+      <div class="actions wrap">
+        <button class="primary" id="zipBtn">All stems (ZIP)</button>
+        <button class="primary" id="mixBtn">Render my mix</button>
+      </div>
+      <label class="check"><input type="checkbox" id="normalize" checked> Prevent clipping in mix</label>
+      <div id="mixResult" class="mixresult hidden"></div>
+      <p class="hint">"Render my mix" uses the exact volume, mute and solo settings above.</p>
+      <div class="actions"><button class="ghost" id="newSongBtn">Separate another song</button></div>
+    </div>
+  </section>
+</main>
+
+<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
